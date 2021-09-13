@@ -10,6 +10,15 @@ var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var countriesRouter = require('./routes/countries');
+var citiesRouter = require('./routes/cities');
+var zonesRouter = require('./routes/zones');
+var rulesRouter = require('./routes/rules');
+var categoriesRouter = require('./routes/categories');
+var rulesvariantsRouter = require('./routes/rulesvariants');
+var projectsRouter = require('./routes/projects');
+var zonerulesRouter = require('./routes/zonerule');
+var conditionsRouter = require('./routes/conditions');
 
 var app = express();
 
@@ -28,6 +37,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/countries', countriesRouter);
+app.use('/cities', citiesRouter);
+app.use('/zones', zonesRouter);
+app.use('/rules', rulesRouter);
+app.use('/categories', categoriesRouter);
+app.use('/rulesvariants', rulesvariantsRouter);
+app.use('/projects', projectsRouter);
+app.use('/zonerules', zonerulesRouter);
+app.use('/conditions', conditionsRouter);
 
 try{
   mongoose.connect(process.env.CONNECTION_STRING, {

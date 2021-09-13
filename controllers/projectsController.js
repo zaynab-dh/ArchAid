@@ -4,7 +4,7 @@ class ProjectsController {
 
     getAll(req, res, next) {
         Project.find({}).populate('userId', 'user_name').
-        populate('zoneId', 'zone_name').
+        populate('propertyId', 'property_name').
         exec((err, response) => {
             if (err) return next(err);
             res.status(200).send(response);

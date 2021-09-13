@@ -5,9 +5,9 @@ const projectSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    zoneId: {
+    propertyId: {
         type: Schema.Types.ObjectId,
-        ref: 'Zone'
+        ref: 'Property'
     },
 }, {
     collection: 'projects'

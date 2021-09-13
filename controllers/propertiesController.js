@@ -1,9 +1,9 @@
-const Condition = require('../models/Condition');
+const Property = require('../models/Property');
 
-class ConditionsController {
+class PropertiesController {
 
     getAll(req, res, next) {
-        Condition.find({}).populate('zoneRuleId').exec((err, response) => {
+        Property.find({}).populate('zoneId', 'zone_name').exec((err, response) => {
             if (err) return next(err);
             res.status(200).send(response);
         })
@@ -11,7 +11,7 @@ class ConditionsController {
 
     get(req, res, next) {
         let { id } = req.params;
-        Condition.findById(id, (err, response) => {
+        Property.findById(id, (err, response) => {
             if (err) return next(err);
             res.status(200).send(response);
         });
@@ -19,8 +19,8 @@ class ConditionsController {
 
     post(req, res, next) {
         let body = req.body;
-        let post = new City(body);
-        post.save((err, response) => {
+        let property = new Property(body);
+        property.save((err, response) => {
             if (err) return next(err);
             res.status(200).send(response);
         });
@@ -29,7 +29,7 @@ class ConditionsController {
     put(req, res, next) {
         let { id } = req.params;
         let body = req.body;
-        Condition.updateOne({ _id: id }, {
+        Property.updateOne({ _id: id }, {
             $set: body
         }, (err, response) => {
             if (err) return next(err);
@@ -39,7 +39,7 @@ class ConditionsController {
 
     delete(req, res, next) {
         let { id } = req.params;
-        Condition.deleteOne({ _id: id }, (err, response) => {
+        Property.deleteOne({ _id: id }, (err, response) => {
             if (err) return next(err);
             res.status(200).send(response);
         })
@@ -47,5 +47,5 @@ class ConditionsController {
 
 }
 
-const conditionsController = new ConditionsController();
-module.exports = conditionsController;
+const propertiesController = new PropertiesController();
+module.exports = propertiesController;

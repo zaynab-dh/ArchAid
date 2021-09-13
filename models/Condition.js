@@ -21,7 +21,7 @@ const conditionSchema = new Schema({
         maxLength: 50,
         required: true
     },
-    zoneruleId: {
+    zoneRuleId: {
         type: Schema.Types.ObjectId,
         ref: 'Zone_rule'
     }

@@ -11,16 +11,6 @@ const zoneSchema = new Schema({
         maxLength: 50,
         required: true
     },
-    from_property: {
-        type: Number,
-        maxLength: 20,
-        required: true
-    },
-    to_property: {
-        type: Number,
-        maxLength: 20,
-        required: true
-    },
     cityId: {
         type: Schema.Types.ObjectId,
         ref: 'City'

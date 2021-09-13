@@ -19,6 +19,7 @@ var rulesvariantsRouter = require('./routes/rulesvariants');
 var projectsRouter = require('./routes/projects');
 var zonerulesRouter = require('./routes/zonerule');
 var conditionsRouter = require('./routes/conditions');
+var propertiesRouter = require('./routes/properties');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use('/rulesvariants', rulesvariantsRouter);
 app.use('/projects', projectsRouter);
 app.use('/zonerules', zonerulesRouter);
 app.use('/conditions', conditionsRouter);
+app.use('/properties', propertiesRouter);
 
 try{
   mongoose.connect(process.env.CONNECTION_STRING, {

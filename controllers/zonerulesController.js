@@ -1,3 +1,4 @@
+const Zone_rule = require('../models/Zone_rule');
 const Zonerule = require('../models/Zone_rule');
 
 class ZonerulesController {
@@ -8,15 +9,34 @@ class ZonerulesController {
         populate('rulesvariantsId', 'rules_variants_name').
         exec((err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
+
+
 
     get(req, res, next) {
         let { id } = req.params;
         Zonerule.findById(id, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
+        });
+    }
+
+    getByZoneId(req, res, next) {
+        let { zoneId } = req.params;
+        Zonerule.find({ zoneId: zoneId }, (err, response) => {
+            if (err) return next(err);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -25,7 +45,10 @@ class ZonerulesController {
         let post = new Zonerule(body);
         post.save((err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -36,7 +59,10 @@ class ZonerulesController {
             $set: body
         }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -44,7 +70,10 @@ class ZonerulesController {
         let { id } = req.params;
         Zonerule.deleteOne({ _id: id }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 

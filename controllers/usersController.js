@@ -5,7 +5,10 @@ class UsersController {
     getAll(req, res, next) {
         User.find({}, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 
@@ -13,7 +16,10 @@ class UsersController {
         let { id } = req.params;
         User.findById(id, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -22,7 +28,10 @@ class UsersController {
         let user = new User(body);
         user.save((err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -33,7 +42,10 @@ class UsersController {
             $set: body
         }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -41,7 +53,10 @@ class UsersController {
         let { id } = req.params;
         User.deleteOne({ _id: id }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 

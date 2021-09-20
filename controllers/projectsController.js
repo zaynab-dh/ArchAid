@@ -7,7 +7,10 @@ class ProjectsController {
         populate('propertyId', 'property_name').
         exec((err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 
@@ -15,7 +18,10 @@ class ProjectsController {
         let { id } = req.params;
         Project.findById(id, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -24,7 +30,10 @@ class ProjectsController {
         let post = new Project(body);
         post.save((err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -35,7 +44,10 @@ class ProjectsController {
             $set: body
         }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -43,7 +55,10 @@ class ProjectsController {
         let { id } = req.params;
         Project.deleteOne({ _id: id }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 

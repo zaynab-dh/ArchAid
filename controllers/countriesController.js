@@ -5,7 +5,10 @@ class CountriesController {
     getAll(req, res, next) {
         Country.find({}, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 
@@ -13,7 +16,10 @@ class CountriesController {
         let { id } = req.params;
         Country.findById(id, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -22,7 +28,10 @@ class CountriesController {
         let country = new Country(body);
         country.save((err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -33,7 +42,10 @@ class CountriesController {
             $set: body
         }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -41,7 +53,10 @@ class CountriesController {
         let { id } = req.params;
         Country.deleteOne({ _id: id }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 

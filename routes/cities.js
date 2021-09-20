@@ -5,6 +5,7 @@ var citiesController = require('../controllers/citiesController');
 /* GET cities listing. */
 router.get('/', citiesController.getAll);
 router.get('/:id', citiesController.get);
+router.get('/getByCountryId/:countryId', citiesController.getByCountryId);
 router.post('/', citiesController.post);
 router.put('/:id', citiesController.put);
 router.delete('/:id', citiesController.delete);

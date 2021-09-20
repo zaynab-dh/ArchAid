@@ -5,7 +5,10 @@ class CitiesController {
     getAll(req, res, next) {
         City.find({}).populate('countryId', 'country_name').exec((err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 
@@ -13,7 +16,21 @@ class CitiesController {
         let { id } = req.params;
         City.findById(id, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
+        });
+    }
+
+    getByCountryId(req, res, next) {
+        let { countryId } = req.params;
+        City.find({ countryId: countryId }, (err, response) => {
+            if (err) return next(err);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -22,7 +39,10 @@ class CitiesController {
         let post = new City(body);
         post.save((err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -33,7 +53,10 @@ class CitiesController {
             $set: body
         }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         });
     }
 
@@ -41,7 +64,10 @@ class CitiesController {
         let { id } = req.params;
         City.deleteOne({ _id: id }, (err, response) => {
             if (err) return next(err);
-            res.status(200).send(response);
+            res.status(200).send({
+                success: true,
+                response
+            });
         })
     }
 

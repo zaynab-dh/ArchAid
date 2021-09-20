@@ -8,18 +8,17 @@ const conditionSchema = new Schema({
     },
     note: {
         type: String,
-        maxLength: 50,
-        required: true
+        maxLength: 200
     },
-    options: {
-        type: String,
-        maxLength: 50,
-        required: true
-    },
-    allowed_values: {
-        type: Number,
-        maxLength: 50,
-        required: true
+    options: [String],
+    actions: {
+        type: Map,
+        of: {
+            type:new Schema({
+            range: [Number],
+            operation: String
+            }) 
+        }
     },
     zoneRuleId: {
         type: Schema.Types.ObjectId,

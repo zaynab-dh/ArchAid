@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 require('dotenv').config();
 var bodyParser = require('body-parser');
@@ -27,7 +28,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(logger('dev'));
@@ -49,31 +51,32 @@ app.use('/zonerules', zonerulesRouter);
 app.use('/conditions', conditionsRouter);
 app.use('/properties', propertiesRouter);
 
-try{
+try {
   mongoose.connect(process.env.CONNECTION_STRING, {
     dbName: process.env.DB_NAME,
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
   });
-} catch(e) {
+} catch (e) {
   Console.log(e)
 }
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  // res.render('error');
+  res.send({ success: false, message: err.message })
 });
 
 module.exports = app;

@@ -17,7 +17,8 @@ const zoneruleSchema = new Schema({
     rulevariantId: {
         type: Schema.Types.ObjectId,
         ref: 'Rules_Variants'
-    }
+    },
+    condition: String,
 }, {
     collection: 'zone_rules'
 });

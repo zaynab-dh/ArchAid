@@ -6,6 +6,7 @@ var zonerulesController = require('../controllers/zonerulesController');
 router.get('/', zonerulesController.getAll);
 router.get('/:id', zonerulesController.get);
 router.get('/getByZoneId/:zoneId', zonerulesController.getByZoneId);
+router.post('/projectTest/:zoneCode', zonerulesController.projectTest);
 router.post('/', zonerulesController.post);
 router.put('/:id', zonerulesController.put);
 router.delete('/:id', zonerulesController.delete);

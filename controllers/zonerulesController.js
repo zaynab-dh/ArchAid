@@ -1,5 +1,5 @@
-const Zone_rule = require('../models/Zone_rule');
 const Zonerule = require('../models/Zone_rule');
+const Zone = require('../models/Zone');
 const mongoose = require('mongoose');
 
 class ZonerulesController {
@@ -110,6 +110,31 @@ class ZonerulesController {
         //             response
         //         });
         //     });
+    }
+
+    async projectTest(req, res, next) {
+
+        let { zoneCode } = req.params;
+        let body = req.body;
+
+        let zone = await Zone.findOne({ code: zoneCode });
+        let zoneRules = await Zonerule.find({
+            zoneId: mongoose.Types.ObjectId(zone._id)
+        });
+
+        let errors = {};
+
+        zoneRules.forEach(zoneRule => {
+            let thisRuleId = zoneRule.ruleId;
+            let inputValue = body[thisRuleId];
+            if (zoneRule.condition === 'max' && zoneRule.value < inputValue) {
+                errors[thisRuleId] = `the ${zoneRule.condition} allowed value is ${zoneRule.value}`;
+            } else if (zoneRule.condition === 'min' && zoneRule.value > inputValue) {
+                errors[thisRuleId] = `the ${zoneRule.condition} allowed value is ${zoneRule.value}`;
+            }
+        })
+
+        res.status(200).send({ success: true, response: errors });
     }
 
     post(req, res, next) {

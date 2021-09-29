@@ -12,6 +12,30 @@ class RulesController {
         })
     }
 
+    getFields(req, res, next) {
+        Rule
+            .find({
+                _id: {
+                    $nin: [
+                        '613f5120c506768e700e1e13',
+                        '613f512fc506768e700e1e15',
+                        '613f514bc506768e700e1e17',
+                        '613f5178c506768e700e1e19',
+                        '613f518fc506768e700e1e1b',
+                        '613f5198c506768e700e1e1d'
+                    ]
+                }
+            })
+            .populate('categoryId', 'category_name')
+            .exec((err, response) => {
+                if (err) return next(err);
+                res.status(200).send({
+                    success: true,
+                    response
+                });
+            })
+    }
+
     get(req, res, next) {
         let { id } = req.params;
         Rule.findById(id, (err, response) => {

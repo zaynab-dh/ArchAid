@@ -117,6 +117,43 @@ class ZonerulesController {
         let { zoneCode } = req.params;
         let body = req.body;
 
+        let zone = await Zone.findOne({
+            _id: {
+                $nin: [
+                    '613f5120c506768e700e1e13',
+                    '613f512fc506768e700e1e15',
+                    '613f514bc506768e700e1e17',
+                    '613f5178c506768e700e1e19',
+                    '613f518fc506768e700e1e1b',
+                    '613f5198c506768e700e1e1d'
+                ]
+            },
+            code: zoneCode
+        });
+        let zoneRules = await Zonerule.find({
+            zoneId: mongoose.Types.ObjectId(zone._id)
+        });
+
+        let errors = {};
+
+        zoneRules.forEach(zoneRule => {
+            let thisRuleId = zoneRule.ruleId;
+            let inputValue = body[thisRuleId];
+            if (zoneRule.condition === 'max' && zoneRule.value < inputValue) {
+                errors[thisRuleId] = `the ${zoneRule.condition} allowed value is ${zoneRule.value}`;
+            } else if (zoneRule.condition === 'min' && zoneRule.value > inputValue) {
+                errors[thisRuleId] = `the ${zoneRule.condition} allowed value is ${zoneRule.value}`;
+            }
+        })
+
+        res.status(200).send({ success: true, response: errors });
+    }
+
+    async projectTest1(req, res, next) {
+
+        let { zoneCode } = req.params;
+        let body = req.body;
+
         let zone = await Zone.findOne({ code: zoneCode });
         let zoneRules = await Zonerule.find({
             zoneId: mongoose.Types.ObjectId(zone._id)

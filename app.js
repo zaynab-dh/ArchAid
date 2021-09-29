@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
 var countriesRouter = require('./routes/countries');
 var citiesRouter = require('./routes/cities');
 var zonesRouter = require('./routes/zones');
@@ -41,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use(authRouter);
 app.use('/countries', countriesRouter);
 app.use('/cities', citiesRouter);
 app.use('/zones', zonesRouter);
